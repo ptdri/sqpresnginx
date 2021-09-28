@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-persistent-storage
+  namespace: wordpress
+  labels:
+    app: wordpress
+spec:
+  storageClassName: shared
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  mountOptions:
+    - nfsvers=4.1
+  nfs:
+    server: 10.0.2.15
+    path: "/mysqlc"
+    readOnly: false
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-persistent-storage
+  labels:
+    app: wordpress
+spec:
+  storageClassName: shared
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 7Gi
