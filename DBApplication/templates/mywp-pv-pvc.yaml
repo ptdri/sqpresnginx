@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mywp-persistent-storage
+  labels:
+    app: wordpress
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 10.0.2.15
+    path: /html_c
+    readOnly: false
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mywp-persistent-storage
+  labels:
+    app: wordpress
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 7Gi
